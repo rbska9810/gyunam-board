@@ -14,8 +14,8 @@ include_once(G5_ADMIN_PATH.'/admin.head.php');
 $file_path = G5_THEME_PATH.'/template/'.$name;
 
 // 에디터 테마 변수
-$edit_theme = $_COOKIE['edit_theme'];
-if($_COOKIE['edit_theme']){
+$edit_theme = $_COOKIE['edit_theme'] ?? '';
+if(!empty($edit_theme)){
   if(!($edit_theme == 'default' || $edit_theme == '3024-day' || $edit_theme == 'base16-light' || $edit_theme == 'duotone-light' || $edit_theme == 'eclipse' || $edit_theme == 'elegant' || $edit_theme == 'idea' || $edit_theme == 'mdn-like' || $edit_theme == 'neat' || $edit_theme == 'paraiso-light' || $edit_theme == 'ttcn' || $edit_theme == 'xq-light' || $edit_theme == 'yeti')){
     $themeColor = '#272829';
     $themeFontColor = '#fff';
