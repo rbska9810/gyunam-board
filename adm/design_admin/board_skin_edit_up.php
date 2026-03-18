@@ -89,8 +89,9 @@ if(!is_dir($common_dir)){
 }
 
 // 이미지 삭제
-for ($i=0; $i<count($_POST['img_del']); $i++) {
-  @unlink(G5_THEME_PATH."/skin/board/".$name."/img/".$_POST['img_del'][$i]);
+$img_del_list = $_POST['img_del'] ?? [];
+for ($i=0; $i<count($img_del_list); $i++) {
+  @unlink(G5_THEME_PATH."/skin/board/".$name."/img/".$img_del_list[$i]);
 }
 
 // 이미지 업로드

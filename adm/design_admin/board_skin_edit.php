@@ -14,8 +14,8 @@ include_once(G5_ADMIN_PATH.'/admin.head.php');
 $file_path = G5_THEME_PATH.'/skin/board/'.$name;
 
 // 에디터 테마 변수
-$edit_theme = $_COOKIE['edit_theme'];
-if($_COOKIE['edit_theme']){
+$edit_theme = $_COOKIE['edit_theme'] ?? '';
+if($edit_theme){
   if(!($edit_theme == 'default' || $edit_theme == '3024-day' || $edit_theme == 'base16-light' || $edit_theme == 'duotone-light' || $edit_theme == 'eclipse' || $edit_theme == 'elegant' || $edit_theme == 'idea' || $edit_theme == 'mdn-like' || $edit_theme == 'neat' || $edit_theme == 'paraiso-light' || $edit_theme == 'ttcn' || $edit_theme == 'xq-light' || $edit_theme == 'yeti')){
     $themeColor = '#272829';
     $themeFontColor = '#fff';
@@ -232,17 +232,20 @@ function editorCtrlS() {
     <h2 class="h2_frm">list.skin.php</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile = $fp = fopen($file_path.'/list.skin.php', 'r');
-      if ($htmlFile) {
-         $content_html = '';
-         while ($line = fgets($fp, 1024)) {
-            $content_html .= $line;
-         }
+      $content_html = '';
+      $htmlFile = null;
+      if (file_exists($file_path.'/list.skin.php')) {
+        $htmlFile = $fp = fopen($file_path.'/list.skin.php', 'r');
+        if ($htmlFile) {
+           while ($line = fgets($fp, 1024)) {
+              $content_html .= $line;
+           }
+        }
       }
       $content_html_re = str_replace('</textarea>','</ textarea>',$content_html);
       ?>
       <textarea name="list_content" id="list_content" style="height:400px;"><?=$content_html_re?></textarea>
-      <?php fclose($htmlFile); ?>
+      <?php if($htmlFile) fclose($htmlFile); ?>
     </div>
 
     <script>
@@ -280,17 +283,20 @@ function editorCtrlS() {
     <h2 class="h2_frm">view.skin.php</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile2 = $fp2 = fopen($file_path.'/view.skin.php', 'r');
-      if ($htmlFile2) {
-         $content_html2 = '';
-         while ($line2 = fgets($fp2, 1024)) {
-            $content_html2 .= $line2;
-         }
+      $content_html2 = '';
+      $htmlFile2 = null;
+      if (file_exists($file_path.'/view.skin.php')) {
+        $htmlFile2 = $fp2 = fopen($file_path.'/view.skin.php', 'r');
+        if ($htmlFile2) {
+           while ($line2 = fgets($fp2, 1024)) {
+              $content_html2 .= $line2;
+           }
+        }
       }
       $content_html_re2 = str_replace('</textarea>','</ textarea>',$content_html2);
       ?>
       <textarea name="view_content" id="view_content" style="height:400px;"><?=$content_html_re2?></textarea>
-      <?php fclose($htmlFile2); ?>
+      <?php if($htmlFile2) fclose($htmlFile2); ?>
     </div>
 
     <script>
@@ -328,17 +334,20 @@ function editorCtrlS() {
     <h2 class="h2_frm">view_comment.skin.php</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile3 = $fp3 = fopen($file_path.'/view_comment.skin.php', 'r');
-      if ($htmlFile3) {
-         $content_html3 = '';
-         while ($line3 = fgets($fp3, 1024)) {
-            $content_html3 .= $line3;
-         }
+      $content_html3 = '';
+      $htmlFile3 = null;
+      if (file_exists($file_path.'/view_comment.skin.php')) {
+        $htmlFile3 = $fp3 = fopen($file_path.'/view_comment.skin.php', 'r');
+        if ($htmlFile3) {
+           while ($line3 = fgets($fp3, 1024)) {
+              $content_html3 .= $line3;
+           }
+        }
       }
       $content_html_re3 = str_replace('</textarea>','</ textarea>',$content_html3);
       ?>
       <textarea name="view_comment_content" id="view_comment_content" style="height:400px;"><?=$content_html_re3?></textarea>
-      <?php fclose($htmlFile3); ?>
+      <?php if($htmlFile3) fclose($htmlFile3); ?>
     </div>
 
     <script>
@@ -378,17 +387,20 @@ function editorCtrlS() {
     <h2 class="h2_frm">write.skin.php</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile4 = $fp4 = fopen($file_path.'/write.skin.php', 'r');
-      if ($htmlFile4) {
-         $content_html4 = '';
-         while ($line4 = fgets($fp4, 1024)) {
-            $content_html4 .= $line4;
-         }
+      $content_html4 = '';
+      $htmlFile4 = null;
+      if (file_exists($file_path.'/write.skin.php')) {
+        $htmlFile4 = $fp4 = fopen($file_path.'/write.skin.php', 'r');
+        if ($htmlFile4) {
+           while ($line4 = fgets($fp4, 1024)) {
+              $content_html4 .= $line4;
+           }
+        }
       }
       $content_html_re4 = str_replace('</textarea>','</ textarea>',$content_html4);
       ?>
       <textarea name="write_content" id="write_content" style="height:400px;"><?=$content_html_re4?></textarea>
-      <?php fclose($htmlFile4); ?>
+      <?php if($htmlFile4) fclose($htmlFile4); ?>
     </div>
 
     <script>
@@ -427,17 +439,20 @@ function editorCtrlS() {
     <h2 class="h2_frm">write_update.skin.php</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile5 = $fp5 = fopen($file_path.'/write_update.skin.php', 'r');
-      if ($htmlFile5) {
-         $content_html5 = '';
-         while ($line5 = fgets($fp5, 1024)) {
-            $content_html5 .= $line5;
-         }
+      $content_html5 = '';
+      $htmlFile5 = null;
+      if (file_exists($file_path.'/write_update.skin.php')) {
+        $htmlFile5 = $fp5 = fopen($file_path.'/write_update.skin.php', 'r');
+        if ($htmlFile5) {
+           while ($line5 = fgets($fp5, 1024)) {
+              $content_html5 .= $line5;
+           }
+        }
       }
       $content_html_re5 = str_replace('</textarea>','</ textarea>',$content_html5);
       ?>
       <textarea name="write_update_content" id="write_update_content" style="height:400px;"><?=$content_html_re5?></textarea>
-      <?php fclose($htmlFile5); ?>
+      <?php if($htmlFile5) fclose($htmlFile5); ?>
     </div>
 
     <script>
@@ -477,17 +492,20 @@ function editorCtrlS() {
     <h2 class="h2_frm">write_comment_update.skin.php</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile6 = $fp6 = fopen($file_path.'/write_comment_update.skin.php', 'r');
-      if ($htmlFile6) {
-         $content_html6 = '';
-         while ($line6 = fgets($fp6, 1024)) {
-            $content_html6 .= $line6;
-         }
+      $content_html6 = '';
+      $htmlFile6 = null;
+      if (file_exists($file_path.'/write_comment_update.skin.php')) {
+        $htmlFile6 = $fp6 = fopen($file_path.'/write_comment_update.skin.php', 'r');
+        if ($htmlFile6) {
+           while ($line6 = fgets($fp6, 1024)) {
+              $content_html6 .= $line6;
+           }
+        }
       }
       $content_html_re6 = str_replace('</textarea>','</ textarea>',$content_html6);
       ?>
       <textarea name="write_comment_update_content" id="write_comment_update_content" style="height:400px;"><?=$content_html_re6?></textarea>
-      <?php fclose($htmlFile6); ?>
+      <?php if($htmlFile6) fclose($htmlFile6); ?>
     </div>
 
     <script>
@@ -539,17 +557,20 @@ function editorCtrlS() {
       <h2 class="h2_frm">CSS</h2>
         <div class="tbl_frm01 tbl_wrap">
           <?php
-          $cssFile = $fp = fopen($file_path.'/style.css', 'r');
-          if ($cssFile) {
-             $content_css = '';
-             while ($line = fgets($fp, 1024)) {
-                $content_css .= $line;
-             }
+          $content_css = '';
+          $cssFile = null;
+          if (file_exists($file_path.'/style.css')) {
+            $cssFile = $fp = fopen($file_path.'/style.css', 'r');
+            if ($cssFile) {
+               while ($line = fgets($fp, 1024)) {
+                  $content_css .= $line;
+               }
+            }
           }
           ?>
           <textarea name="file_css" id="file_css"><?=$content_css?></textarea>
 
-          <?php fclose($cssFile); ?>
+          <?php if($cssFile) fclose($cssFile); ?>
         </div>
 
         <script>

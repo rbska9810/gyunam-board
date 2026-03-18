@@ -1,5 +1,5 @@
 <?php
-if($_GET['name'] == 'mainpage'){
+if(($_GET['name'] ?? '') == 'mainpage'){
   $sub_menu = "600300";
 }else{
   $sub_menu = "600400";
@@ -7,67 +7,75 @@ if($_GET['name'] == 'mainpage'){
 
 include_once('_common.php');
 
-$mode = $_POST['mode'];
-$name = $_POST['name'];
+$mode = $_POST['mode'] ?? '';
+$name = $_POST['name'] ?? '';
 
-$empty = $_POST['empty'];
-$head_area = $_POST['head'];
-$content_area = $_POST['content'];
-$footer_area = $_POST['footer'];
-$left_sidebar_area = $_POST['left_sidebar'];
-$right_sidebar_area = $_POST['right_sidebar'];
-$b_left_sidebar_area = $_POST['b_left_sidebar'];
-$b_right_sidebar_area = $_POST['b_right_sidebar'];
-$sidebar_position = '|'.$_POST['side_position1'].'|'.$_POST['side_position2'].'|'.$_POST['side_position3'].'|'.$_POST['side_position4'];
+$empty = $_POST['empty'] ?? [];
+$head_area = $_POST['head'] ?? [];
+$content_area = $_POST['content'] ?? [];
+$footer_area = $_POST['footer'] ?? [];
+$left_sidebar_area = $_POST['left_sidebar'] ?? [];
+$right_sidebar_area = $_POST['right_sidebar'] ?? [];
+$b_left_sidebar_area = $_POST['b_left_sidebar'] ?? [];
+$b_right_sidebar_area = $_POST['b_right_sidebar'] ?? [];
+$sidebar_position = '|'.($_POST['side_position1'] ?? '').'|'.($_POST['side_position2'] ?? '').'|'.($_POST['side_position3'] ?? '').'|'.($_POST['side_position4'] ?? '');
 
 // css setting val
-$container = $_POST['container'];
-$b_left = $_POST['b_left'];
-$b_right = $_POST['b_right'];
-$left = $_POST['left'];
-$right = $_POST['right'];
-$page_wrap = $_POST['page_wrap'];
-$content_wrap = $_POST['content_wrap'];
-$tb = $_POST['tb'];
-$mo = $_POST['mo'];
-$relative = $_POST['relative'];
+$container = $_POST['container'] ?? '';
+$b_left = $_POST['b_left'] ?? '';
+$b_right = $_POST['b_right'] ?? '';
+$left = $_POST['left'] ?? '';
+$right = $_POST['right'] ?? '';
+$page_wrap = $_POST['page_wrap'] ?? '';
+$content_wrap = $_POST['content_wrap'] ?? '';
+$tb = $_POST['tb'] ?? '';
+$mo = $_POST['mo'] ?? '';
+$relative = $_POST['relative'] ?? '';
 
 
 // 배열 데이터 나누기
+$empty_val = '';
 foreach($empty as $item) {
     $empty_val .= "|".$item;
 }
 
+$head_area_val = '';
 foreach($head_area as $item) {
     $head_area_val .= "|".$item;
 }
 
+$content_area_val = '';
 foreach($content_area as $item) {
     $content_area_val .= "|".$item;
 }
 
+$footer_area_val = '';
 foreach($footer_area as $item) {
     $footer_area_val .= "|".$item;
 }
 
+$left_sidebar_area_val = '';
 foreach($left_sidebar_area as $item) {
     $left_sidebar_area_val .= "|".$item;
 }
 
+$right_sidebar_area_val = '';
 foreach($right_sidebar_area as $item) {
     $right_sidebar_area_val .= "|".$item;
 }
 
+$b_left_sidebar_area_val = '';
 foreach($b_left_sidebar_area as $item) {
     $b_left_sidebar_area_val .= "|".$item;
 }
 
+$b_right_sidebar_area_val = '';
 foreach($b_right_sidebar_area as $item) {
     $b_right_sidebar_area_val .= "|".$item;
 }
 
 
-if ($_POST['act_button'] == "CSS 설정") {
+if (($_POST['act_button'] ?? '') == "CSS 설정") {
 
   $sql = " update g5_layout_css_set set
 								css_1 = '".$container."',
@@ -90,7 +98,7 @@ if ($_POST['act_button'] == "CSS 설정") {
 
 
 // 사이드바 설정 업데이트
-if ($_POST['act_button'] == "사이드바 설정") {
+if (($_POST['act_button'] ?? '') == "사이드바 설정") {
 
   $position_val = $sidebar_position;
   $sql = " update g5_content_block_set set
@@ -121,6 +129,7 @@ if($mode=="UPDATE") {
     }
   }
 
+	$pagename = $pagename ?? '';
 	$sql = " update g5_content_block_set set
 								pagename = '".$pagename."',
 								empty_area = '".$empty_val."',

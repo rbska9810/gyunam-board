@@ -9,7 +9,7 @@ $name = $_POST['name'];
 //////////////////////////////////////////////////////////////////
 // 접수폼 설정및 수정
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "설정" || $_POST['act_button'] == "수정") {
+if (($_POST['act_button'] ?? '') == "설정" || ($_POST['act_button'] ?? '') == "수정") {
 
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
@@ -45,7 +45,7 @@ if ($_POST['act_button'] == "설정" || $_POST['act_button'] == "수정") {
   // 전송할 게시판의 여분필드갯수와 연동. 게시판이 연동 되어있지 않을경우, 기본10개 표시.
   if($_POST['board']){
     $extend_column = "SELECT count(*) cnt FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE COLUMN_NAME LIKE '%wr_%' AND TABLE_NAME = 'g5_write_".$_POST[board]."'
+    WHERE COLUMN_NAME LIKE '%wr_%' AND TABLE_NAME = 'g5_write_".$_POST['board']."'
     AND COLUMN_NAME
     NOT IN ('wr_id','wr_num','wr_reply','wr_parent','wr_is_comment','wr_comment','wr_comment_reply','ca_name','wr_option','wr_subject','wr_content','wr_link1','wr_link2','wr_link1_hit','wr_link2_hit','wr_hit','wr_good','wr_nogood','mb_id','wr_password','wr_name','wr_email','wr_homepage','wr_datetime','wr_file','wr_last','wr_ip','wr_facebook_user','wr_twitter_user')";
     $cnt = sql_fetch($extend_column);
@@ -55,6 +55,7 @@ if ($_POST['act_button'] == "설정" || $_POST['act_button'] == "수정") {
   }
 
 
+  $wr_add = '';
   for($i = 1; $i <= $filedCount; $i++){
     $wr_name[$i] = $_POST['wr_'.$i.'_name'];
     $wr_type[$i] = $_POST['wr_'.$i.'_type'];
@@ -114,7 +115,7 @@ $form_filed[wr_sms_type] = "'.$wr_sms_type.'";
 //////////////////////////////////////////////////////////////////
 // 접수폼데이터 삭제
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "삭제") {
+if (($_POST['act_button'] ?? '') == "삭제") {
 
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');

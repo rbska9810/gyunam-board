@@ -8,7 +8,7 @@ check_demo();
 //////////////////////////////////////////////////////////////////
 // 파일 업로드
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "파일업로드") {
+if (($_POST['act_button'] ?? '') == "파일업로드") {
   if ($is_admin != 'super')
       alert('최고관리자만 접근 가능합니다.');
   auth_check($auth[$sub_menu] ?? '', 'w');
@@ -64,7 +64,7 @@ if ($_POST['act_button'] == "파일업로드") {
 //////////////////////////////////////////////////////////////////
 // 파일 다운로드
 //////////////////////////////////////////////////////////////////
-if($_GET['w'] == 'download'){
+if(($_GET['w'] ?? '') == 'download'){
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
 
@@ -115,7 +115,7 @@ if($_GET['w'] == 'download'){
 //////////////////////////////////////////////////////////////////
 // 최근게시물스킨 생성
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "생성") {
+if (($_POST['act_button'] ?? '') == "생성") {
 
   if ($is_admin != 'super')
       alert('최고관리자만 접근 가능합니다.');
@@ -124,14 +124,14 @@ if ($_POST['act_button'] == "생성") {
 
   check_admin_token();
 
-  if($_POST[file_name]){
+  if($_POST['file_name'] ?? ''){
   /* ==  파일 업로드 == */
   // 블럭파일 폴더 생성
-  $common_dir2 = G5_THEME_PATH."/skin/board/".$_POST[file_name]."/";
+  $common_dir2 = G5_THEME_PATH."/skin/board/".$_POST['file_name']."/";
   if(!is_dir($common_dir2)){
     mkdir($common_dir2);
   }
-  $common_dir3 = G5_THEME_PATH."/skin/board/".$_POST[file_name]."/img/";
+  $common_dir3 = G5_THEME_PATH."/skin/board/".$_POST['file_name']."/img/";
   if(!is_dir($common_dir3)){
     mkdir($common_dir3);
   }
@@ -140,12 +140,13 @@ if ($_POST['act_button'] == "생성") {
 
 
   // list 파일 생성
+  $content_code1 = '';
   $orgFile1 = $fp1 = fopen($origin_file_path.'/list.skin.php', 'r');
   if ($orgFile1) {
-     $content_code1 = '';
      while ($line1 = fgets($fp1, 1024)) {
         $content_code1 .= $line1;
      }
+     fclose($orgFile1);
   }
   $content_code_re1 = str_replace('</textarea>','</ textarea>',$content_code1);
 
@@ -155,12 +156,13 @@ if ($_POST['act_button'] == "생성") {
 
 
   // view.skin 파일 생성
+  $content_code2 = '';
   $orgFile2 = $fp2 = fopen($origin_file_path.'/view.skin.php', 'r');
   if ($orgFile2) {
-     $content_code2 = '';
      while ($line2 = fgets($fp2, 1024)) {
         $content_code2 .= $line2;
      }
+     fclose($orgFile2);
   }
   $content_code_re2 = str_replace('</textarea>','</ textarea>',$content_code2);
 
@@ -170,12 +172,13 @@ if ($_POST['act_button'] == "생성") {
 
 
   // view_comment.skin 파일 생성
+  $content_code3 = '';
   $orgFile3 = $fp3 = fopen($origin_file_path.'/view_comment.skin.php', 'r');
   if ($orgFile3) {
-     $content_code3 = '';
      while ($line3 = fgets($fp3, 1024)) {
         $content_code3 .= $line3;
      }
+     fclose($orgFile3);
   }
   $content_code_re3 = str_replace('</textarea>','</ textarea>',$content_code3);
 
@@ -185,12 +188,13 @@ if ($_POST['act_button'] == "생성") {
 
 
   // write.skin 파일 생성
+  $content_code4 = '';
   $orgFile4 = $fp4 = fopen($origin_file_path.'/write.skin.php', 'r');
   if ($orgFile4) {
-     $content_code4 = '';
      while ($line4 = fgets($fp4, 1024)) {
         $content_code4 .= $line4;
      }
+     fclose($orgFile4);
   }
   $content_code_re4 = str_replace('</textarea>','</ textarea>',$content_code4);
 
@@ -200,12 +204,13 @@ if ($_POST['act_button'] == "생성") {
 
 
   // write_update.skin 파일 생성
+  $content_code5 = '';
   $orgFile5 = $fp5 = fopen($origin_file_path.'/write_update.skin.php', 'r');
   if ($orgFile5) {
-     $content_code5 = '';
      while ($line5 = fgets($fp5, 1024)) {
         $content_code5 .= $line5;
      }
+     fclose($orgFile5);
   }
   $content_code_re5 = str_replace('</textarea>','</ textarea>',$content_code5);
 
@@ -215,12 +220,13 @@ if ($_POST['act_button'] == "생성") {
 
 
   // write_comment_update.skin 파일 생성
+  $content_code6 = '';
   $orgFile6 = $fp6 = fopen($origin_file_path.'/write_comment_update.skin.php', 'r');
   if ($orgFile6) {
-     $content_code6 = '';
      while ($line6 = fgets($fp6, 1024)) {
         $content_code6 .= $line6;
      }
+     fclose($orgFile6);
   }
   $content_code_re6 = str_replace('</textarea>','</ textarea>',$content_code6);
 
@@ -231,12 +237,13 @@ if ($_POST['act_button'] == "생성") {
 
 
   // css 파일 생성
+  $content_code6 = '';
   $orgFile6 = $fp6 = fopen($origin_file_path.'/style.css', 'r');
   if ($orgFile6) {
-     $content_code6 = '';
      while ($line6 = fgets($fp6, 1024)) {
         $content_code6 .= $line6;
      }
+     fclose($orgFile6);
   }
   $content_code_re6 = str_replace('</textarea>','</ textarea>',$content_code6);
 
@@ -259,7 +266,7 @@ if ($_POST['act_button'] == "생성") {
 //////////////////////////////////////////////////////////////////
 // 최근게시물스킨 삭제
 //////////////////////////////////////////////////////////////////
-if($_GET['w'] == 'd'){
+if(($_GET['w'] ?? '') == 'd'){
   // 데이터 및 파일 삭제
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
@@ -267,7 +274,7 @@ if($_GET['w'] == 'd'){
   auth_check($auth[$sub_menu] ?? '', 'd');
 
   // 파일 삭제
-  $del_dir = G5_THEME_PATH."/skin/board/".$_GET['file_name']; // 삭제 대상 폴더
+  $del_dir = G5_THEME_PATH."/skin/board/".($_GET['file_name'] ?? ''); // 삭제 대상 폴더
 
   @unlink($del_dir.'/list.skin.php');
   @unlink($del_dir.'/view.skin.php');
@@ -278,11 +285,15 @@ if($_GET['w'] == 'd'){
 
   @unlink($del_dir.'/style.css');
 
-  $handle = opendir($del_dir.'/img'); // 절대경로
-  while ($file = readdir($handle)) {
-          @unlink($del_dir.'/img/'.$file);
+  if(is_dir($del_dir.'/img')) {
+    $handle = opendir($del_dir.'/img'); // 절대경로
+    if($handle) {
+      while ($file = readdir($handle)) {
+              @unlink($del_dir.'/img/'.$file);
+      }
+      closedir($handle);
+    }
   }
-  closedir($handle);
 
   @rmdir($del_dir.'/img');
   @rmdir($del_dir);

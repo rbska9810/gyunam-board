@@ -26,10 +26,10 @@ add_javascript('<script src="'.G5_ADMIN_URL.'/design_admin/js/block_setup.js"></
 
 $page_name = $_GET['name'];
 
-$b_sidebar_left = $_GET['b_left'];
-$b_sidebar_right = $_GET['b_right'];
-$sidebar_left = $_GET['left'];
-$sidebar_right = $_GET['right'];
+$b_sidebar_left = $_GET['b_left'] ?? '';
+$b_sidebar_right = $_GET['b_right'] ?? '';
+$sidebar_left = $_GET['left'] ?? '';
+$sidebar_right = $_GET['right'] ?? '';
 
 // DB 가져오기
 $sql1 = " select * from g5_content_block_set where name = '".$page_name."' ";
@@ -38,6 +38,15 @@ $result1 = sql_query($sql1);
 $sql2 = " select * from g5_layout_css_set where name = '".$page_name."' ";
 $result2 = sql_fetch($sql2);
 
+$empty_area = '';
+$head_area = '';
+$content_area = '';
+$footer_area = '';
+$left_sidebar_area = '';
+$right_sidebar_area = '';
+$b_left_sidebar_area = '';
+$b_right_sidebar_area = '';
+$sidebar_position = '';
 for ($i=0; $row1=sql_fetch_array($result1); $i++) {
   $empty_area .= $row1['empty_area'];
   $head_area .= $row1['head_area'];
@@ -76,12 +85,10 @@ include_once(G5_ADMIN_PATH.'/design_admin/block_setup_layout_css.php');
           <td>
             <?php
             $position_arr = explode('|',$sidebar_position);
-            for ($i=1; $i < count($position_arr); $i++) {
-              $position1 = $position_arr[1];
-              $position2 = $position_arr[2];
-              $position3 = $position_arr[3];
-              $position4 = $position_arr[4];
-            }
+            $position1 = $position_arr[1] ?? '';
+            $position2 = $position_arr[2] ?? '';
+            $position3 = $position_arr[3] ?? '';
+            $position4 = $position_arr[4] ?? '';
 
             if($_GET['name'] == 'mainpage'){
             ?>
@@ -111,6 +118,14 @@ include_once(G5_ADMIN_PATH.'/design_admin/block_setup_layout_css.php');
     <div id="sortable1" class="droptrue">
       <?php
       // 블럭 리스트 전체를 뿌리고, 화면구성에서 셋팅된 아이템들은 빼고 리스트. (쿼리문에서 제어해야함)
+        $whereQuery = '';
+        $headQuery = '';
+        $contentQuery = '';
+        $footerQuery = '';
+        $left_sidebar_Query = '';
+        $right_sidebar_Query = '';
+        $b_left_sidebar_Query = '';
+        $b_right_sidebar_Query = '';
         $head_arr = explode('|',$head_area);
         for ($f=1; $f < count($head_arr); $f++) {
           $whereQuery .= "'".$head_arr[$f]."',"; $headQuery .= "'".$head_arr[$f]."',";

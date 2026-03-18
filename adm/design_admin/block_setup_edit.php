@@ -7,18 +7,19 @@ auth_check($auth[$sub_menu] ?? '', 'r');
 if ($is_admin != 'super')
     alert('최고관리자만 접근 가능합니다.');
 */
-$name = $_GET['name'];
-$mode1 = $_GET['mode1'];
+$name = $_GET['name'] ?? '';
+$mode1 = $_GET['mode1'] ?? '';
 $g5['title'] = $name."파일수정";
 include_once(G5_ADMIN_PATH.'/admin.head.php');
 
+$namearr = [];
 if($mode1 == 'css'){
   $namearr = explode('.css',$name);
 }else if($mode1 == 'js'){
   $namearr = explode('.js',$name);
 }
-$mode = $namearr[1];
-$name1 = $namearr[0];
+$mode = $namearr[1] ?? '';
+$name1 = $namearr[0] ?? '';
 
 if($mode1 == 'css'){
   $file_path = G5_THEME_PATH.'/css/';
@@ -51,16 +52,19 @@ textarea {font-size: 14px;}
         <tr>
           <td>
             <?php
-            $cssFile = $fp = fopen($file_path.$name, 'r');
-            if ($cssFile) {
-               $content_css = '';
-               while ($line = fgets($fp, 1024)) {
-                  $content_css .= $line;
-               }
+            $content_css = '';
+            $cssFile = null;
+            if (file_exists($file_path.$name)) {
+              $cssFile = $fp = fopen($file_path.$name, 'r');
+              if ($cssFile) {
+                 while ($line = fgets($fp, 1024)) {
+                    $content_css .= $line;
+                 }
+              }
             }
             ?>
             <textarea name="file" style="height:600px;"><?=$content_css?></textarea>
-            <?php fclose($cssFile); ?>
+            <?php if($cssFile) fclose($cssFile); ?>
           </td>
         </tr>
         </tbody>

@@ -281,22 +281,22 @@ $check = $form_filed['board'];
 
                       <div class="margin-10">
                         사용여부
-                        <input type="radio" name="wr_sms_check" class="uk-radio" value="n" <?php if($form_filed[wr_sms_check]=='n' ){echo 'checked';}else{echo 'checked';}?> > 사용안함
-                        <input type="radio" name="wr_sms_check" class="uk-radio" value="y" <?php if($form_filed[wr_sms_check]=='y' ){echo 'checked';}?> > 사용함
+                        <input type="radio" name="wr_sms_check" class="uk-radio" value="n" <?php if(($form_filed['wr_sms_check'] ?? '')=='n' ){echo 'checked';}else{echo 'checked';}?> > 사용안함
+                        <input type="radio" name="wr_sms_check" class="uk-radio" value="y" <?php if(($form_filed['wr_sms_check'] ?? '')=='y' ){echo 'checked';}?> > 사용함
                       </div>
 
                       <div class="margin-10">
                         링크주소 받기
-                        <input type="radio" name="wr_sms_type" class="uk-radio" value="S" <?php if($form_filed[wr_sms_type]=='S' ){echo 'checked';}else{echo 'checked';}?> > 사용안함
-                        <input type="radio" name="wr_sms_type" class="uk-radio" value="L" <?php if($form_filed[wr_sms_type]=='L' ){echo 'checked';}?> > 사용함
+                        <input type="radio" name="wr_sms_type" class="uk-radio" value="S" <?php if(($form_filed['wr_sms_type'] ?? '')=='S' ){echo 'checked';}else{echo 'checked';}?> > 사용안함
+                        <input type="radio" name="wr_sms_type" class="uk-radio" value="L" <?php if(($form_filed['wr_sms_type'] ?? '')=='L' ){echo 'checked';}?> > 사용함
                       </div>
 
                       <span class="frm_info margin-10">
                         링크주소를 받을경우 LMS 으로 보내집니다.
                       </span>
 
-                      <input type="text" name="wr_sms_send" class="uk-input margin-10" placeholder="보내는 전화번호" value="<?=$form_filed[wr_sms_send]?>">
-                      <input type="text" name="wr_sms_recv" class="uk-input margin-10" placeholder="받는 전화번호" value="<?=$form_filed[wr_sms_recv]?>">
+                      <input type="text" name="wr_sms_send" class="uk-input margin-10" placeholder="보내는 전화번호" value="<?=$form_filed['wr_sms_send'] ?? ''?>">
+                      <input type="text" name="wr_sms_recv" class="uk-input margin-10" placeholder="받는 전화번호" value="<?=$form_filed['wr_sms_recv'] ?? ''?>">
 
 
                     </td>

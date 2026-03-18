@@ -1,11 +1,9 @@
 <?php
-$position_arr = explode('|',$sidebar_position);
-for ($i=1; $i < count($position_arr); $i++) {
-  $position1 = $position_arr[1];
-  $position2 = $position_arr[2];
-  $position3 = $position_arr[3];
-  $position4 = $position_arr[4];
-}
+$position_arr = explode('|',$sidebar_position ?? '');
+$position1 = $position_arr[1] ?? '';
+$position2 = $position_arr[2] ?? '';
+$position3 = $position_arr[3] ?? '';
+$position4 = $position_arr[4] ?? '';
 
 
 if(!($position4)){

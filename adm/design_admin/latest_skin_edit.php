@@ -14,8 +14,8 @@ include_once(G5_ADMIN_PATH.'/admin.head.php');
 $file_path = G5_THEME_PATH.'/skin/latest/'.$name;
 
 // 에디터 테마 변수
-$edit_theme = $_COOKIE['edit_theme'];
-if($_COOKIE['edit_theme']){
+$edit_theme = $_COOKIE['edit_theme'] ?? '';
+if($edit_theme){
   if(!($edit_theme == 'default' || $edit_theme == '3024-day' || $edit_theme == 'base16-light' || $edit_theme == 'duotone-light' || $edit_theme == 'eclipse' || $edit_theme == 'elegant' || $edit_theme == 'idea' || $edit_theme == 'mdn-like' || $edit_theme == 'neat' || $edit_theme == 'paraiso-light' || $edit_theme == 'ttcn' || $edit_theme == 'xq-light' || $edit_theme == 'yeti')){
     $themeColor = '#272829';
     $themeFontColor = '#fff';
@@ -203,17 +203,20 @@ function editorCtrlS() {
     <h2 class="h2_frm">latest.skin.php</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile = $fp = fopen($file_path.'/latest.skin.php', 'r');
-      if ($htmlFile) {
-         $content_html = '';
-         while ($line = fgets($fp, 1024)) {
-            $content_html .= $line;
-         }
+      $content_html = '';
+      $htmlFile = null;
+      if (file_exists($file_path.'/latest.skin.php')) {
+        $htmlFile = $fp = fopen($file_path.'/latest.skin.php', 'r');
+        if ($htmlFile) {
+           while ($line = fgets($fp, 1024)) {
+              $content_html .= $line;
+           }
+        }
       }
       $content_html_re = str_replace('</textarea>','</ textarea>',$content_html);
       ?>
       <textarea name="file_html" id="file_html" style="height:400px;"><?=$content_html_re?></textarea>
-      <?php fclose($htmlFile); ?>
+      <?php if($htmlFile) fclose($htmlFile); ?>
     </div>
 
     <script>
@@ -251,17 +254,20 @@ function editorCtrlS() {
       <h2 class="h2_frm">CSS</h2>
         <div class="tbl_frm01 tbl_wrap">
           <?php
-          $cssFile = $fp = fopen($file_path.'/style.css', 'r');
-          if ($cssFile) {
-             $content_css = '';
-             while ($line = fgets($fp, 1024)) {
-                $content_css .= $line;
-             }
+          $content_css = '';
+          $cssFile = null;
+          if (file_exists($file_path.'/style.css')) {
+            $cssFile = $fp = fopen($file_path.'/style.css', 'r');
+            if ($cssFile) {
+               while ($line = fgets($fp, 1024)) {
+                  $content_css .= $line;
+               }
+            }
           }
           ?>
           <textarea name="file_css" id="file_css"><?=$content_css?></textarea>
 
-          <?php fclose($cssFile); ?>
+          <?php if($cssFile) fclose($cssFile); ?>
         </div>
 
         <script>

@@ -9,6 +9,7 @@ $g5['title'] = '메뉴 추가';
 include_once(G5_PATH.'/head.sub.php');
 
 $code = isset($code) ? preg_replace('/[^0-9a-zA-Z]/', '', strip_tags($code)) : '';
+$new = $_GET['new'] ?? '';
 
 // 코드
 if($new == 'new' || !$code) {

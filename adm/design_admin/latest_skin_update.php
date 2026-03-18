@@ -8,7 +8,7 @@ check_demo();
 //////////////////////////////////////////////////////////////////
 // 파일 업로드
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "파일업로드") {
+if (($_POST['act_button'] ?? '') == "파일업로드") {
   if ($is_admin != 'super')
       alert('최고관리자만 접근 가능합니다.');
   auth_check($auth[$sub_menu] ?? '', 'w');
@@ -64,7 +64,7 @@ if ($_POST['act_button'] == "파일업로드") {
 //////////////////////////////////////////////////////////////////
 // 파일 다운로드
 //////////////////////////////////////////////////////////////////
-if($_GET['w'] == 'download'){
+if(($_GET['w'] ?? '') == 'download'){
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
 
@@ -109,7 +109,7 @@ if($_GET['w'] == 'download'){
 //////////////////////////////////////////////////////////////////
 // 최근게시물스킨 생성
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "생성") {
+if (($_POST['act_button'] ?? '') == "생성") {
 
   if ($is_admin != 'super')
       alert('최고관리자만 접근 가능합니다.');
@@ -118,14 +118,14 @@ if ($_POST['act_button'] == "생성") {
 
   check_admin_token();
 
-  if($_POST[file_name]){
+  if($_POST['file_name'] ?? ''){
   /* ==  파일 업로드 == */
   // 블럭파일 폴더 생성
-  $common_dir2 = G5_THEME_PATH."/skin/latest/".$_POST[file_name]."/";
+  $common_dir2 = G5_THEME_PATH."/skin/latest/".$_POST['file_name']."/";
   if(!is_dir($common_dir2)){
     mkdir($common_dir2);
   }
-  $common_dir3 = G5_THEME_PATH."/skin/latest/".$_POST[file_name]."/img/";
+  $common_dir3 = G5_THEME_PATH."/skin/latest/".$_POST['file_name']."/img/";
   if(!is_dir($common_dir3)){
     mkdir($common_dir3);
   }
@@ -144,7 +144,7 @@ add_stylesheet(\'<link rel="stylesheet" href="\'.$latest_skin_url.\'/style.css">
   // css 파일 생성
   $file2 = fopen($common_dir2."style.css","w");
   fwrite($file2, '@charset "utf-8";
-/* 새글 스킨 (latest) */'.$_POST[file_name].'{}
+/* 새글 스킨 (latest) */'.$_POST['file_name'].'{}
   ');
   fclose($file2);
 
@@ -162,7 +162,7 @@ add_stylesheet(\'<link rel="stylesheet" href="\'.$latest_skin_url.\'/style.css">
 //////////////////////////////////////////////////////////////////
 // 최근게시물스킨 삭제
 //////////////////////////////////////////////////////////////////
-if($_GET['w'] == 'd'){
+if(($_GET['w'] ?? '') == 'd'){
   // 데이터 및 파일 삭제
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
@@ -179,11 +179,15 @@ if($_GET['w'] == 'd'){
   @unlink($del_dir.'/latest.skin.php');
   @unlink($del_dir.'/style.css');
 
-  $handle = opendir($del_dir.'/img'); // 절대경로
-  while ($file = readdir($handle)) {
-          @unlink($del_dir.'/img/'.$file);
+  if(is_dir($del_dir.'/img')) {
+    $handle = opendir($del_dir.'/img'); // 절대경로
+    if($handle) {
+      while ($file = readdir($handle)) {
+              @unlink($del_dir.'/img/'.$file);
+      }
+      closedir($handle);
+    }
   }
-  closedir($handle);
 
   @rmdir($del_dir.'/img');
   @rmdir($del_dir);

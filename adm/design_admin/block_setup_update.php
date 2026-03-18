@@ -7,7 +7,7 @@ include_once('./_common.php');
 //////////////////////////////////////////////////////////////////
 // 기본CSS 파일 업데이트
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == 'CSS 파일업로드') {
+if (($_POST['act_button'] ?? '') == 'CSS 파일업로드') {
 
   auth_check($auth[$sub_menu] ?? '', 'w');
   check_admin_token();
@@ -47,7 +47,7 @@ if ($_POST['act_button'] == 'CSS 파일업로드') {
 //////////////////////////////////////////////////////////////////
 // 기본CSS 파일 삭제
 //////////////////////////////////////////////////////////////////
-if($_GET['w'] == 'd' && $_GET['part'] == 'css' ){
+if(($_GET['w'] ?? '') == 'd' && ($_GET['part'] ?? '') == 'css' ){
   // 데이터 및 파일 삭제
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
@@ -60,7 +60,7 @@ if($_GET['w'] == 'd' && $_GET['part'] == 'css' ){
   sql_query($sql);
 
   // 업로드된 파일 삭제
-  @unlink(G5_THEME_PATH."/css/".$_GET[name].".css");
+  @unlink(G5_THEME_PATH."/css/".($_GET['name'] ?? '').".css");
   alert('파일을 삭제 했습니다.');
 }
 
@@ -69,7 +69,7 @@ if($_GET['w'] == 'd' && $_GET['part'] == 'css' ){
 //////////////////////////////////////////////////////////////////
 // 기본JS 파일 업데이트
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == 'JS 파일업로드') {
+if (($_POST['act_button'] ?? '') == 'JS 파일업로드') {
 
   auth_check($auth[$sub_menu] ?? '', 'w');
   check_admin_token();
@@ -110,7 +110,7 @@ if ($_POST['act_button'] == 'JS 파일업로드') {
 //////////////////////////////////////////////////////////////////
 // 기본JS 파일 삭제
 //////////////////////////////////////////////////////////////////
-if($_GET['w'] == 'd' && $_GET['part'] == 'js' ){
+if(($_GET['w'] ?? '') == 'd' && ($_GET['part'] ?? '') == 'js' ){
   // 데이터 및 파일 삭제
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
@@ -123,7 +123,7 @@ if($_GET['w'] == 'd' && $_GET['part'] == 'js' ){
   sql_query($sql);
 
   // 업로드된 파일 삭제
-  @unlink(G5_THEME_PATH."/js/".$_GET[name].".js");
+  @unlink(G5_THEME_PATH."/js/".($_GET['name'] ?? '').".js");
   alert('파일을 삭제 했습니다.');
 }
 
@@ -131,13 +131,14 @@ if($_GET['w'] == 'd' && $_GET['part'] == 'js' ){
 
 
 // 사용여부/메타태그 추가 업데이트
-if ($_POST['act_button'] == "확인") {
+if (($_POST['act_button'] ?? '') == "확인") {
 
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
 
   auth_check($auth[$sub_menu] ?? '', 'u');
 
+  $checked_arr = '';
   for($i=0; $i < count($_POST['checked']); $i++){
     $checked_arr .= $_POST['checked'][$i];
   }
