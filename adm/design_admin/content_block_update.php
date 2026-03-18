@@ -8,7 +8,7 @@ check_demo();
 //////////////////////////////////////////////////////////////////
 // 파일 업로드
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "파일업로드") {
+if (($_POST['act_button'] ?? '') == "파일업로드") {
   if ($is_admin != 'super')
       alert('최고관리자만 접근 가능합니다.');
   auth_check($auth[$sub_menu] ?? '', 'w');
@@ -122,7 +122,7 @@ if($_GET['w'] == 'download'){
 //////////////////////////////////////////////////////////////////
 // 블럭생성
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "생성") {
+if (($_POST['act_button'] ?? '') == "생성") {
 
   if ($is_admin != 'super')
       alert('최고관리자만 접근 가능합니다.');
@@ -216,11 +216,13 @@ if($_GET['w'] == 'd'){
   @unlink($del_dir.'/screenshot.png');
   @unlink($del_dir.'/form_data.php');
 
-  $handle = opendir($del_dir.'/images'); // 절대경로
-  while ($file = readdir($handle)) {
-          @unlink($del_dir.'/images/'.$file);
+  $handle = is_dir($del_dir.'/images') ? opendir($del_dir.'/images') : false;
+  if ($handle) {
+    while ($file = readdir($handle)) {
+        @unlink($del_dir.'/images/'.$file);
+    }
+    closedir($handle);
   }
-  closedir($handle);
 
   @rmdir($del_dir.'/images');
   @rmdir($del_dir);
@@ -233,7 +235,7 @@ if($_GET['w'] == 'd'){
 //////////////////////////////////////////////////////////////////
 // 테마선택
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "선택") {
+if (($_POST['act_button'] ?? '') == "선택") {
 
   // 기존 쿠키값 삭제
   unset($_COOKIE["edit_theme"]);
@@ -247,7 +249,7 @@ if ($_POST['act_button'] == "선택") {
 //////////////////////////////////////////////////////////////////
 // 최신게시물 설정
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "최신게시물 설정") {
+if (($_POST['act_button'] ?? '') == "최신게시물 설정") {
 
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
@@ -275,7 +277,7 @@ if ($_POST['act_button'] == "최신게시물 설정") {
 //////////////////////////////////////////////////////////////////
 // 최신게시물 삭제
 //////////////////////////////////////////////////////////////////
-if ($_POST['act_button'] == "최신게시물 삭제") {
+if (($_POST['act_button'] ?? '') == "최신게시물 삭제") {
 
   if ($is_admin != 'super')
       alert('게시판 삭제는 최고관리자만 가능합니다.');
