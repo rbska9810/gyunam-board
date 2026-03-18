@@ -14,6 +14,10 @@ if(G5_COMMUNITY_USE === false) {
 $sql1 = " select * from g5_content_block_set where name = 'mainpage' ";
 $result1 = sql_query($sql1);
 
+$footer_area = '';
+$right_sidebar_area = '';
+$b_right_sidebar_area = '';
+$sidebar_position = $sidebar_position ?? '';
 for ($i7=0; $row1=sql_fetch_array($result1); $i7++) {
   $footer_area .= $row1['footer_area']; // 푸터영역
   $right_sidebar_area .= $row1['right_sidebar_area']; // 오른쪽사이드 영역
@@ -23,15 +27,14 @@ for ($i7=0; $row1=sql_fetch_array($result1); $i7++) {
 
 // 사이드바 위치정보 배열
 $position_arr = explode('|',$sidebar_position);
-for ($i8=1; $i8 < count($position_arr); $i8++) {
-  $position1 = $position_arr[1]; // left
-  $position2 = $position_arr[2]; // right
-  $position3 = $position_arr[3]; // b_left
-  $position4 = $position_arr[4]; // b_right
-}
+$position1 = $position_arr[1] ?? '';
+$position2 = $position_arr[2] ?? '';
+$position3 = $position_arr[3] ?? '';
+$position4 = $position_arr[4] ?? '';
 
 
 if (!defined('_INDEX_')) {
+  $co_id = $co_id ?? '';
   if(!$co_id){
     if($uri1 == 'bbs'){
     echo '</div>';
@@ -53,6 +56,7 @@ if (!defined('_INDEX_')) {
   }
 }
 
+$co_id = $co_id ?? '';
 if(!$co_id){
   if($uri1 == 'bbs'){
     echo '</div>';
@@ -134,7 +138,7 @@ $(function() {
 
 <?php
 // chat_code include
-$chatFile = $fp = fopen(G5_THEME_PATH.'/act/chat_code.html', 'r');
+$chatFile = file_exists(G5_THEME_PATH.'/act/chat_code.html') ? fopen(G5_THEME_PATH.'/act/chat_code.html', 'r') : false;
 if($chatFile){
   include_once(G5_THEME_PATH."/act/chat_code.html");
 }

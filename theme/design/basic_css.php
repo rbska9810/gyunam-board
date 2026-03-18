@@ -7,9 +7,9 @@ $result1 = sql_fetch($sql1);
 
 $container_width = $result['css_1'];
 
-$position_Arr = explode('|',$result1['sidebar_position']);
-$position_left = $position_Arr[1];
-$position_right = $position_Arr[2];
+$position_Arr = explode('|',$result1['sidebar_position'] ?? '');
+$position_left = $position_Arr[1] ?? '';
+$position_right = $position_Arr[2] ?? '';
 //$position_right = $position_Arr[1];
 //$position_right = $position_Arr[1];
 

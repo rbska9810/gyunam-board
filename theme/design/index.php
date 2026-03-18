@@ -1,5 +1,5 @@
 <?php
-define('_INDEX_', true);
+if (!defined('_INDEX_')) define('_INDEX_', true);
 if (!defined('_GNUBOARD_')) exit; // 개별 페이지 접근 불가
 
 if (G5_IS_MOBILE) {
@@ -17,11 +17,15 @@ include_once(G5_THEME_PATH.'/head.php');
 $sql1 = " select * from g5_content_block_set where name = 'mainpage' ";
 $result1 = sql_query($sql1);
 
+$content_area = '';
+$sidebar_area = '';
+$sidebar_position = '';
+$sidebar_parent = '';
 for ($i5=0; $row1=sql_fetch_array($result1); $i5++) {
   $content_area .= $row1['content_area'];
-  $sidebar_area .= $row1['sidebar_area'];
+  $sidebar_area .= $row1['sidebar_area'] ?? '';
   $sidebar_position .= $row1['sidebar_position'];
-  $sidebar_parent .= $row1['sidebar_parent'];
+  $sidebar_parent .= $row1['sidebar_parent'] ?? '';
 }
 
 $content = explode('|',$content_area);

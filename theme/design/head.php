@@ -32,6 +32,10 @@ $uri2 = $uri_arr[2];
 $sql1 = " select * from g5_content_block_set where name = 'mainpage' ";
 $result1 = sql_query($sql1);
 
+$head_area = '';
+$left_sidebar_area = '';
+$b_left_sidebar_area = '';
+$sidebar_position = '';
 for ($i=0; $row1=sql_fetch_array($result1); $i++) {
   $head_area .= $row1['head_area']; // 헤드영역
   $left_sidebar_area .= $row1['left_sidebar_area']; // 왼쪽사이드 영역
@@ -40,12 +44,10 @@ for ($i=0; $row1=sql_fetch_array($result1); $i++) {
 }
 // 사이드바 위치정보 배열
 $position_arr = explode('|',$sidebar_position);
-for ($i1=1; $i1 < count($position_arr); $i1++) {
-  $position1 = $position_arr[1]; // left
-  $position2 = $position_arr[2]; // right
-  $position3 = $position_arr[3]; // b_left
-  $position4 = $position_arr[4]; // b_right
-}
+$position1 = $position_arr[1] ?? '';
+$position2 = $position_arr[2] ?? '';
+$position3 = $position_arr[3] ?? '';
+$position4 = $position_arr[4] ?? '';
 // 기본 레이아웃 스타일
 include_once(G5_THEME_PATH.'/basic_css.php');
 
@@ -78,6 +80,7 @@ for($i3=1; $i3<count($head); $i3++){
 // content_wrap start
 echo '<div id="content_wrap">';
 
+$co_id = $co_id ?? '';
 if(!$co_id){
   if($uri1 == 'bbs'){
     echo '<div class="container">';
