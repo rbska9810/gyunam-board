@@ -204,17 +204,17 @@ function editorCtrlS() {
     <h2 class="h2_frm">HTML</h2>
     <div class="tbl_frm01 tbl_wrap">
       <?php
-      $htmlFile = $fp = fopen($file_path.'/index.html', 'r');
+      $content_html = '';
+      $htmlFile = file_exists($file_path.'/index.html') ? fopen($file_path.'/index.html', 'r') : false;
       if ($htmlFile) {
-         $content_html = '';
-         while ($line = fgets($fp, 1024)) {
+         while ($line = fgets($htmlFile, 1024)) {
             $content_html .= $line;
          }
+         fclose($htmlFile);
       }
       $content_html_re = str_replace('</textarea>','</ textarea>',$content_html);
       ?>
       <textarea name="file_html" id="file_html" style="height:400px;"><?=$content_html_re?></textarea>
-      <?php fclose($htmlFile); ?>
     </div>
 
     <script>
@@ -252,17 +252,16 @@ function editorCtrlS() {
       <h2 class="h2_frm">CSS</h2>
         <div class="tbl_frm01 tbl_wrap">
           <?php
-          $cssFile = $fp = fopen($file_path.'/style.css', 'r');
+          $content_css = '';
+          $cssFile = file_exists($file_path.'/style.css') ? fopen($file_path.'/style.css', 'r') : false;
           if ($cssFile) {
-             $content_css = '';
-             while ($line = fgets($fp, 1024)) {
+             while ($line = fgets($cssFile, 1024)) {
                 $content_css .= $line;
              }
+             fclose($cssFile);
           }
           ?>
           <textarea name="file_css" id="file_css"><?=$content_css?></textarea>
-
-          <?php fclose($cssFile); ?>
         </div>
 
         <script>
@@ -294,17 +293,17 @@ function editorCtrlS() {
       <h2 class="h2_frm">JS</h2>
       <div class="tbl_frm01 tbl_wrap">
         <?php
-        $jsFile = $fp = fopen($file_path.'/script.js', 'r');
+        $content_js = '';
+        $jsFile = file_exists($file_path.'/script.js') ? fopen($file_path.'/script.js', 'r') : false;
         if ($jsFile) {
-           $content_js = '';
-           while ($line = fgets($fp, 1024)) {
+           while ($line = fgets($jsFile, 1024)) {
               $content_js .= $line;
            }
+           fclose($jsFile);
         }
         $content_js_re = str_replace('</textarea>','</ textarea>',$content_js);
         ?>
         <textarea name="file_js" id="file_js"><?=$content_js_re?></textarea>
-        <?php fclose($jsFile); ?>
       </div>
 
       <script>
